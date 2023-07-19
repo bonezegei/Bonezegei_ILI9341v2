@@ -1,6 +1,7 @@
 /*
   This Library is written for ILI9341 LCD
   Author: Bonezegei (Jofel Batutay)
+  Date: July 2023 
 */
 
 #include "Bonezegei_ILI9341v2.h"
@@ -16,7 +17,7 @@ Bonezegei_ILI9341v2::Bonezegei_ILI9341v2(int8_t rst, int8_t cs, int8_t dc) {
 }
 
 void Bonezegei_ILI9341v2::begin() {
-  setFontParam(verdanaB_12ptBitmaps, verdanaB_12ptDescriptors);
+  setFontParam(poppins_12ptBitmaps, poppins_12ptDescriptors);
   vspi = new SPIClass(VSPI);
   vspi->begin();
   vspi->setFrequency(ILI9341_SPISPEED);
@@ -314,29 +315,38 @@ void Bonezegei_ILI9341v2::setFontParam(const char fd[], const int dsc[95][3]) {
 void Bonezegei_ILI9341v2::setFont(FONT_TYPE ft) {
 
   switch (ft) {
-    case ARIAL_8:
+
+#ifndef FONT_POPPINS
+    case FONT_POPPINS_8:
+      setFontParam(poppins_8ptBitmaps, poppins_8ptDescriptors);
+      break;
+    case FONT_POPPINS_10:
+      setFontParam(poppins_10ptBitmaps, poppins_10ptDescriptors);
+      break;
+    case FONT_POPPINS_12:
+      setFontParam(poppins_12ptBitmaps, poppins_12ptDescriptors);
+      break;
+    case FONT_POPPINS_14:
+      setFontParam(poppins_14ptBitmaps, poppins_14ptDescriptors);
+      break;
+    case FONT_POPPINS_16:
+      setFontParam(poppins_16ptBitmaps, poppins_16ptDescriptors);
+      break;
+#endif
+    case FONT_ARIAL_8:
       setFontParam(arial_8ptBitmaps, arial_8ptDescriptors);
       break;
-    case ARIAL_10:
+    case FONT_ARIAL_10:
       setFontParam(arial_10ptBitmaps, arial_10ptDescriptors);
       break;
-    case ARIAL_11:
-      setFontParam(Arial11, Arial11_desc);
+    case FONT_ARIAL_12:
+      setFontParam(arial_12ptBitmaps, arial_12ptDescriptors);
       break;
-    case UBUNTU_12:
-      setFontParam(ubuntuMono_12ptBitmaps, ubuntuMono_12ptDescriptors);
-      break;
-    case UBUNTU_BOLD_12:
-      setFontParam(ubuntuMono_12ptBitmapsB, ubuntuMono_12ptDescriptorsB);
-      break;
-    case VERDANA_12:
-      setFontParam(verdana_12ptBitmaps, verdana_12ptDescriptors);
-      break;
-    case VERDANA_BOLD_12:
-      setFontParam(verdanaB_12ptBitmaps, verdanaB_12ptDescriptors);
+    case FONT_ARIAL_14:
+      setFontParam(arial_14ptBitmaps, arial_14ptDescriptors);
       break;
     default:
-      setFontParam(arial_8ptBitmaps, arial_8ptDescriptors);
+      setFontParam(poppins_8ptBitmaps, poppins_8ptDescriptors);
   }
 }
 
@@ -481,7 +491,7 @@ void Bonezegei_ILI9341v2::drawFilledRectangleClipped(uint16_t cx1, uint16_t cy1,
 }
 
 void Bonezegei_ILI9341v2::drawRectangleClipped(uint16_t cx1, uint16_t cy1, uint16_t cx2, uint16_t cy2, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint32_t color) {
-    drawFilledRectangleClipped(cx1, cy1, cx2, cy2, x1, y1, x2, y1, color);
+  drawFilledRectangleClipped(cx1, cy1, cx2, cy2, x1, y1, x2, y1, color);
   drawFilledRectangleClipped(cx1, cy1, cx2, cy2, x1, y2, x2, y2, color);
   drawFilledRectangleClipped(cx1, cy1, cx2, cy2, x1, y1, x1, y2, color);
   drawFilledRectangleClipped(cx1, cy1, cx2, cy2, x2, y1, x2, y2, color);
