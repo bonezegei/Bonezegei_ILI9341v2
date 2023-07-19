@@ -481,4 +481,8 @@ void Bonezegei_ILI9341v2::drawFilledRectangleClipped(uint16_t cx1, uint16_t cy1,
 }
 
 void Bonezegei_ILI9341v2::drawRectangleClipped(uint16_t cx1, uint16_t cy1, uint16_t cx2, uint16_t cy2, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint32_t color) {
+    drawFilledRectangleClipped(cx1, cy1, cx2, cy2, x1, y1, x2, y1, color);
+  drawFilledRectangleClipped(cx1, cy1, cx2, cy2, x1, y2, x2, y2, color);
+  drawFilledRectangleClipped(cx1, cy1, cx2, cy2, x1, y1, x1, y2, color);
+  drawFilledRectangleClipped(cx1, cy1, cx2, cy2, x2, y1, x2, y2, color);
 }
