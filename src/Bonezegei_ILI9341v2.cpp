@@ -481,13 +481,50 @@ void Bonezegei_ILI9341v2::drawPixelClipped(uint16_t cx1, uint16_t cy1, uint16_t 
 }
 
 void Bonezegei_ILI9341v2::drawFilledRectangleClipped(uint16_t cx1, uint16_t cy1, uint16_t cx2, uint16_t cy2, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint32_t color) {
-  int w = x2 - x1;
+/*   int w = x2 - x1;
   int h = y2 - y1;
   for (int b = 0; b < h; b++) {
     for (int a = 0; a < w; a++) {
       drawPixelClipped(cx1, cy1, cx2, cy2, x1 + a, y1 + b, color);
     }
   }
+   */
+   
+  int total = (1 + (x2 - x1)) * (1 + (y2 - y1));
+  
+  int x1Lim = 0;
+  int x2Lim = 0;
+  int y1Lim = 0; 
+  int y2Lim = 0; 
+   
+  if(x1<cx1){
+	  x1Lim = cx1;}
+  else{
+	  x1Lim = x1;}
+  if(x2>cx2){
+	  x2Lim = cx2;}
+  else{
+	  x2Lim = x2;}
+  if(y1<cy1){
+	  y1Lim = cy1;}
+  else{
+	  y1Lim = y1;}
+  if(y2>cy2){
+	  y2Lim = cy2;}
+  else{
+	  y2Lim = y2;}	
+	
+  vspi->setFrequency(ILI9341_SPISPEED);
+  col(y1Lim, y2Lim);
+  row(x1Lim, x2Lim);
+  sendCommand(0x2c);
+  digitalWrite(_cs, LOW);
+  for (int a = 0; a < total; a++) {
+    spi24(color);
+  }
+  digitalWrite(_cs, HIGH);
+  
+  
 }
 
 void Bonezegei_ILI9341v2::drawRectangleClipped(uint16_t cx1, uint16_t cy1, uint16_t cx2, uint16_t cy2, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint32_t color) {
