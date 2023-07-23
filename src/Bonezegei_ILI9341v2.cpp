@@ -490,7 +490,7 @@ void Bonezegei_ILI9341v2::drawFilledRectangleClipped(uint16_t cx1, uint16_t cy1,
   }
    */
    
-  int total = (1 + (x2 - x1)) * (1 + (y2 - y1));
+
   
   int x1Lim = 0;
   int x2Lim = 0;
@@ -513,6 +513,8 @@ void Bonezegei_ILI9341v2::drawFilledRectangleClipped(uint16_t cx1, uint16_t cy1,
 	  y2Lim = cy2;}
   else{
 	  y2Lim = y2;}	
+  
+  int total = (1 + (x2Lim - x1Lim)) * (1 + (y2Lim - y1Lim));
 	
   vspi->setFrequency(ILI9341_SPISPEED);
   col(y1Lim, y2Lim);
