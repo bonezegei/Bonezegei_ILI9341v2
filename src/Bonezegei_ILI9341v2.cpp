@@ -17,7 +17,7 @@ Bonezegei_ILI9341v2::Bonezegei_ILI9341v2(int8_t rst, int8_t cs, int8_t dc) {
 }
 
 void Bonezegei_ILI9341v2::begin() {
-  setFontParam(poppins_12ptBitmaps, poppins_12ptDescriptors);
+  setFontParam(arial_8ptBitmaps, arial_8ptDescriptors);
   vspi = new SPIClass(VSPI);
   vspi->begin();
   vspi->setFrequency(ILI9341_SPISPEED);
@@ -316,23 +316,6 @@ void Bonezegei_ILI9341v2::setFont(FONT_TYPE ft) {
 
   switch (ft) {
 
-#ifndef FONT_POPPINS
-    case FONT_POPPINS_8:
-      setFontParam(poppins_8ptBitmaps, poppins_8ptDescriptors);
-      break;
-    case FONT_POPPINS_10:
-      setFontParam(poppins_10ptBitmaps, poppins_10ptDescriptors);
-      break;
-    case FONT_POPPINS_12:
-      setFontParam(poppins_12ptBitmaps, poppins_12ptDescriptors);
-      break;
-    case FONT_POPPINS_14:
-      setFontParam(poppins_14ptBitmaps, poppins_14ptDescriptors);
-      break;
-    case FONT_POPPINS_16:
-      setFontParam(poppins_16ptBitmaps, poppins_16ptDescriptors);
-      break;
-#endif
     case FONT_ARIAL_8:
       setFontParam(arial_8ptBitmaps, arial_8ptDescriptors);
       break;
@@ -345,8 +328,22 @@ void Bonezegei_ILI9341v2::setFont(FONT_TYPE ft) {
     case FONT_ARIAL_14:
       setFontParam(arial_14ptBitmaps, arial_14ptDescriptors);
       break;
+    case FONT_ARIAL_16:
+      setFontParam(arial_16ptBitmaps, arial_16ptDescriptors);
+      break;
+
+    case FONT_ARIAL_8_BOLD:
+      setFontParam(arial_8ptBoldBitmaps, arial_8ptBoldDescriptors);
+      break;
+	case FONT_ARIAL_10_BOLD:
+      setFontParam(arial_10ptBoldBitmaps, arial_10ptBoldDescriptors);
+      break;
+	case FONT_ARIAL_12_BOLD:
+      setFontParam(arial_12ptBoldBitmaps, arial_12ptBoldDescriptors);
+      break;
+	  
     default:
-      setFontParam(poppins_8ptBitmaps, poppins_8ptDescriptors);
+      setFontParam(arial_8ptBitmaps, arial_8ptDescriptors);
   }
 }
 
