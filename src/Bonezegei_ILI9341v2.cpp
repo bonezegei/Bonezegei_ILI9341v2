@@ -438,7 +438,7 @@ void Bonezegei_ILI9341v2::drawTextClippedNL(uint16_t cx1, uint16_t cy1, uint16_t
           //drawRectangle(xRun, yRun, xRun + w, yRun + font.descriptor[0][1], COLOR_TEAL);
 
           if ((w + 8) >= (cx2 - xRun)) {
-            xRun = cx1 + 1;
+             xRun = x + 1;
             yRun += font.descriptor[0][1] + 2;
           }
         }
