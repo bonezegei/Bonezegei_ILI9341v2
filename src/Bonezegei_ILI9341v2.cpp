@@ -532,3 +532,66 @@ void Bonezegei_ILI9341v2::drawRectangleClipped(uint16_t cx1, uint16_t cy1, uint1
   drawFilledRectangleClipped(cx1, cy1, cx2, cy2, x1, y1, x1, y2, color);
   drawFilledRectangleClipped(cx1, cy1, cx2, cy2, x2, y1, x2, y2, color);
 }
+
+
+uint16_t Bonezegei_ILI9341v2::getStringTotalHeight(uint16_t cx1, uint16_t cy1, uint16_t cx2, uint16_t cy2, int x, int y, const char *str){
+	  xRun = x;
+  yRun = y;
+  int nextWordStart = 0;
+
+  char buffWord[32];
+  int buffWordCount = 0;
+
+  vspi->setFrequency(ILI9341_SPISPEED);
+
+  int strCount = 0;
+  int h=0;
+
+  while (str[strCount]) {
+
+    if (strCount == nextWordStart) {
+      buffWordCount = 0;
+      //for(int a=0; a<32; a++)buffWord[a]=0;
+      for (int a = nextWordStart; a < (nextWordStart + 32); a++) {
+        if (str[a] > 32) {
+          buffWord[buffWordCount] = str[a];
+
+          buffWordCount++;
+        } else {
+          a = nextWordStart + 32;
+          buffWord[buffWordCount] = 0;
+
+          int w = getStringWidth((char *)buffWord);
+
+          if ((w + 8) >= (cx2 - xRun)) {
+            xRun = x + 1;
+            yRun += font.descriptor[0][1] + 2;
+			h += font.descriptor[0][1] + 2;
+          }
+        }
+        nextWordStart++;
+      }
+
+    }
+	  int b = str[strCount] - 32;
+	  int xLimit = cx2;
+	  //int yLimit = 240;
+
+	  if (xRun >= (xLimit - 8)) {
+		xRun = cx1 + 1;
+		yRun += font.descriptor[b][1] + 2;
+	  }
+
+	  if (font.descriptor[b][0] <= 8) {
+
+	  } else {
+
+	  }
+	  xRun += font.descriptor[b][0] + 2;
+	
+
+    strCount++;
+  }
+  
+  return h;
+}
