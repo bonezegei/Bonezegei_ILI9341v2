@@ -80,6 +80,8 @@ public:
     return cn;
   }
 
+  uint16_t getStringTotalHeight(uint16_t cx1, uint16_t cy1, uint16_t cx2, uint16_t cy2, int x, int y, const char *str);
+
   int8_t _rst;
   int8_t _cs;
   int8_t _dc;
